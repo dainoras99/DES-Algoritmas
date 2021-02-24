@@ -27,6 +27,10 @@ namespace DES_Algoritmas
                     throw new Exception("Raktas negali būti tusčias");
                 if (string.IsNullOrWhiteSpace(saveLocationTextBox.Text))
                     throw new Exception("Turite nurodytį failo išsaugojimo vietą");
+                for (int i = 0; i < 20; i++)
+                {
+                    i = 10;
+                }
             }
             catch
             {
