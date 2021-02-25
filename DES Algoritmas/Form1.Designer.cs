@@ -29,8 +29,8 @@ namespace DES_Algoritmas
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabEncryptPage = new System.Windows.Forms.TabPage();
             this.saveLocationTextBox = new System.Windows.Forms.RichTextBox();
             this.cbcEncryptRadioButton = new System.Windows.Forms.RadioButton();
             this.ecbEncryptRadioButton = new System.Windows.Forms.RadioButton();
@@ -40,10 +40,10 @@ namespace DES_Algoritmas
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.keyTextBox = new System.Windows.Forms.RichTextBox();
-            this.decryptThisTextBox = new System.Windows.Forms.RichTextBox();
+            this.encryptKeyTextBox = new System.Windows.Forms.RichTextBox();
+            this.encryptThisTextBox = new System.Windows.Forms.RichTextBox();
             this.encryptButton = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabDecryptPage = new System.Windows.Forms.TabPage();
             this.scanFileTextBox = new System.Windows.Forms.RichTextBox();
             this.decryptCbcRadioButton = new System.Windows.Forms.RadioButton();
             this.decryptEcbRadioButton = new System.Windows.Forms.RadioButton();
@@ -53,51 +53,52 @@ namespace DES_Algoritmas
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.encryptThisTextBox = new System.Windows.Forms.RichTextBox();
+            this.decryptKeyTextBox = new System.Windows.Forms.RichTextBox();
+            this.decryptThisTextBox = new System.Windows.Forms.RichTextBox();
             this.decryptButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.tabEncryptPage.SuspendLayout();
+            this.tabDecryptPage.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // tabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1120, 622);
-            this.tabControl1.TabIndex = 2;
+            this.tabControl.Controls.Add(this.tabEncryptPage);
+            this.tabControl.Controls.Add(this.tabDecryptPage);
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(1120, 622);
+            this.tabControl.TabIndex = 2;
             // 
-            // tabPage1
+            // tabEncryptPage
             // 
-            this.tabPage1.BackColor = System.Drawing.SystemColors.Info;
-            this.tabPage1.Controls.Add(this.saveLocationTextBox);
-            this.tabPage1.Controls.Add(this.cbcEncryptRadioButton);
-            this.tabPage1.Controls.Add(this.ecbEncryptRadioButton);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.saveAtThisLocationButton);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.keyTextBox);
-            this.tabPage1.Controls.Add(this.decryptThisTextBox);
-            this.tabPage1.Controls.Add(this.encryptButton);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1112, 596);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Šifravimas";
+            this.tabEncryptPage.BackColor = System.Drawing.SystemColors.Info;
+            this.tabEncryptPage.Controls.Add(this.saveLocationTextBox);
+            this.tabEncryptPage.Controls.Add(this.cbcEncryptRadioButton);
+            this.tabEncryptPage.Controls.Add(this.ecbEncryptRadioButton);
+            this.tabEncryptPage.Controls.Add(this.label5);
+            this.tabEncryptPage.Controls.Add(this.saveAtThisLocationButton);
+            this.tabEncryptPage.Controls.Add(this.label4);
+            this.tabEncryptPage.Controls.Add(this.label3);
+            this.tabEncryptPage.Controls.Add(this.label2);
+            this.tabEncryptPage.Controls.Add(this.label1);
+            this.tabEncryptPage.Controls.Add(this.encryptKeyTextBox);
+            this.tabEncryptPage.Controls.Add(this.encryptThisTextBox);
+            this.tabEncryptPage.Controls.Add(this.encryptButton);
+            this.tabEncryptPage.Location = new System.Drawing.Point(4, 22);
+            this.tabEncryptPage.Name = "tabEncryptPage";
+            this.tabEncryptPage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabEncryptPage.Size = new System.Drawing.Size(1112, 596);
+            this.tabEncryptPage.TabIndex = 0;
+            this.tabEncryptPage.Text = "Šifravimas";
             // 
             // saveLocationTextBox
             // 
             this.saveLocationTextBox.Location = new System.Drawing.Point(351, 110);
             this.saveLocationTextBox.Name = "saveLocationTextBox";
+            this.saveLocationTextBox.ReadOnly = true;
             this.saveLocationTextBox.Size = new System.Drawing.Size(321, 21);
             this.saveLocationTextBox.TabIndex = 12;
             this.saveLocationTextBox.Text = "";
@@ -183,21 +184,21 @@ namespace DES_Algoritmas
             this.label1.TabIndex = 3;
             this.label1.Text = "Šifruoti";
             // 
-            // keyTextBox
+            // encryptKeyTextBox
             // 
-            this.keyTextBox.Location = new System.Drawing.Point(134, 76);
-            this.keyTextBox.Name = "keyTextBox";
-            this.keyTextBox.Size = new System.Drawing.Size(321, 21);
-            this.keyTextBox.TabIndex = 2;
-            this.keyTextBox.Text = "";
+            this.encryptKeyTextBox.Location = new System.Drawing.Point(134, 76);
+            this.encryptKeyTextBox.Name = "encryptKeyTextBox";
+            this.encryptKeyTextBox.Size = new System.Drawing.Size(321, 21);
+            this.encryptKeyTextBox.TabIndex = 2;
+            this.encryptKeyTextBox.Text = "";
             // 
-            // decryptThisTextBox
+            // encryptThisTextBox
             // 
-            this.decryptThisTextBox.Location = new System.Drawing.Point(56, 163);
-            this.decryptThisTextBox.Name = "decryptThisTextBox";
-            this.decryptThisTextBox.Size = new System.Drawing.Size(594, 272);
-            this.decryptThisTextBox.TabIndex = 1;
-            this.decryptThisTextBox.Text = "";
+            this.encryptThisTextBox.Location = new System.Drawing.Point(56, 163);
+            this.encryptThisTextBox.Name = "encryptThisTextBox";
+            this.encryptThisTextBox.Size = new System.Drawing.Size(594, 272);
+            this.encryptThisTextBox.TabIndex = 1;
+            this.encryptThisTextBox.Text = "";
             // 
             // encryptButton
             // 
@@ -207,29 +208,30 @@ namespace DES_Algoritmas
             this.encryptButton.TabIndex = 0;
             this.encryptButton.Text = "Šifruoti";
             this.encryptButton.UseVisualStyleBackColor = true;
+            this.encryptButton.Click += new System.EventHandler(this.encryptButton_Click);
             // 
-            // tabPage2
+            // tabDecryptPage
             // 
-            this.tabPage2.BackColor = System.Drawing.SystemColors.Info;
-            this.tabPage2.Controls.Add(this.scanFileTextBox);
-            this.tabPage2.Controls.Add(this.decryptCbcRadioButton);
-            this.tabPage2.Controls.Add(this.decryptEcbRadioButton);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.getFileAtThisLocationButton);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.richTextBox1);
-            this.tabPage2.Controls.Add(this.encryptThisTextBox);
-            this.tabPage2.Controls.Add(this.decryptButton);
-            this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1112, 596);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Dešifravimas";
+            this.tabDecryptPage.BackColor = System.Drawing.SystemColors.Info;
+            this.tabDecryptPage.Controls.Add(this.scanFileTextBox);
+            this.tabDecryptPage.Controls.Add(this.decryptCbcRadioButton);
+            this.tabDecryptPage.Controls.Add(this.decryptEcbRadioButton);
+            this.tabDecryptPage.Controls.Add(this.label6);
+            this.tabDecryptPage.Controls.Add(this.getFileAtThisLocationButton);
+            this.tabDecryptPage.Controls.Add(this.label7);
+            this.tabDecryptPage.Controls.Add(this.label8);
+            this.tabDecryptPage.Controls.Add(this.label9);
+            this.tabDecryptPage.Controls.Add(this.label10);
+            this.tabDecryptPage.Controls.Add(this.decryptKeyTextBox);
+            this.tabDecryptPage.Controls.Add(this.decryptThisTextBox);
+            this.tabDecryptPage.Controls.Add(this.decryptButton);
+            this.tabDecryptPage.Controls.Add(this.button2);
+            this.tabDecryptPage.Location = new System.Drawing.Point(4, 22);
+            this.tabDecryptPage.Name = "tabDecryptPage";
+            this.tabDecryptPage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDecryptPage.Size = new System.Drawing.Size(1112, 596);
+            this.tabDecryptPage.TabIndex = 1;
+            this.tabDecryptPage.Text = "Dešifravimas";
             // 
             // scanFileTextBox
             // 
@@ -320,21 +322,21 @@ namespace DES_Algoritmas
             this.label10.TabIndex = 15;
             this.label10.Text = "Dešifruoti";
             // 
-            // richTextBox1
+            // decryptKeyTextBox
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(134, 77);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(321, 21);
-            this.richTextBox1.TabIndex = 14;
-            this.richTextBox1.Text = "";
+            this.decryptKeyTextBox.Location = new System.Drawing.Point(134, 77);
+            this.decryptKeyTextBox.Name = "decryptKeyTextBox";
+            this.decryptKeyTextBox.Size = new System.Drawing.Size(321, 21);
+            this.decryptKeyTextBox.TabIndex = 14;
+            this.decryptKeyTextBox.Text = "";
             // 
-            // encryptThisTextBox
+            // decryptThisTextBox
             // 
-            this.encryptThisTextBox.Location = new System.Drawing.Point(56, 164);
-            this.encryptThisTextBox.Name = "encryptThisTextBox";
-            this.encryptThisTextBox.Size = new System.Drawing.Size(594, 272);
-            this.encryptThisTextBox.TabIndex = 13;
-            this.encryptThisTextBox.Text = "";
+            this.decryptThisTextBox.Location = new System.Drawing.Point(56, 164);
+            this.decryptThisTextBox.Name = "decryptThisTextBox";
+            this.decryptThisTextBox.Size = new System.Drawing.Size(594, 272);
+            this.decryptThisTextBox.TabIndex = 13;
+            this.decryptThisTextBox.Text = "";
             // 
             // decryptButton
             // 
@@ -361,27 +363,27 @@ namespace DES_Algoritmas
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Moccasin;
             this.ClientSize = new System.Drawing.Size(752, 593);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControl);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabControl.ResumeLayout(false);
+            this.tabEncryptPage.ResumeLayout(false);
+            this.tabEncryptPage.PerformLayout();
+            this.tabDecryptPage.ResumeLayout(false);
+            this.tabDecryptPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabEncryptPage;
         private System.Windows.Forms.Button encryptButton;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabDecryptPage;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RichTextBox keyTextBox;
-        private System.Windows.Forms.RichTextBox decryptThisTextBox;
+        private System.Windows.Forms.RichTextBox encryptKeyTextBox;
+        private System.Windows.Forms.RichTextBox encryptThisTextBox;
         private System.Windows.Forms.Button saveAtThisLocationButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -398,8 +400,8 @@ namespace DES_Algoritmas
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.RichTextBox encryptThisTextBox;
+        private System.Windows.Forms.RichTextBox decryptKeyTextBox;
+        private System.Windows.Forms.RichTextBox decryptThisTextBox;
         private System.Windows.Forms.Button decryptButton;
         private System.Windows.Forms.RichTextBox saveLocationTextBox;
         private System.Windows.Forms.RichTextBox scanFileTextBox;

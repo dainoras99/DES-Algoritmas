@@ -23,19 +23,48 @@ namespace DES_Algoritmas
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(keyTextBox.Text))
-                    throw new Exception("Raktas negali būti tusčias");
-                if (string.IsNullOrWhiteSpace(saveLocationTextBox.Text))
-                    throw new Exception("Turite nurodytį failo išsaugojimo vietą");
-                for (int i = 0; i < 20; i++)
-                {
-                    i = 10;
-                }
-            }
-            catch
-            {
+                DecryptValidations();
 
             }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
+
+        private void encryptButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EncryptValidations();
+
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+        private void EncryptValidations()
+        {
+            if (string.IsNullOrWhiteSpace(encryptKeyTextBox.Text))
+                throw new Exception("Raktas negali būti tusčias");
+            if (string.IsNullOrWhiteSpace(encryptThisTextBox.Text))
+                throw new Exception("Turite įkelti failą arba parašyti norimą koduoti tekstą");
+            if (string.IsNullOrWhiteSpace(saveLocationTextBox.Text))
+                throw new Exception("Turite nurodytį kur įrašysite failą");
+            if (!ecbEncryptRadioButton.Checked && !cbcEncryptRadioButton.Checked)
+                throw new Exception("Turite pasirinkite - ECB arba CBC!");
+
+        }
+        private void DecryptValidations()
+        {
+            if (string.IsNullOrWhiteSpace(decryptKeyTextBox.Text))
+                throw new Exception("Raktas negali būti tusčias");
+            if (string.IsNullOrWhiteSpace(decryptThisTextBox.Text))
+                throw new Exception("Turite įkeltį nuskaitomą failą arba parašyti atkoduojamą tekstą");
+            if (!decryptEcbRadioButton.Checked && !decryptCbcRadioButton.Checked)
+                throw new Exception("Turite pasirinkite - ECB arba CBC!");
+        }
+
     }
 }
