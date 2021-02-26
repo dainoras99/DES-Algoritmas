@@ -31,6 +31,8 @@ namespace DES_Algoritmas
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabEncryptPage = new System.Windows.Forms.TabPage();
+            this.encrypted = new System.Windows.Forms.RichTextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.saveLocationTextBox = new System.Windows.Forms.RichTextBox();
             this.cbcEncryptRadioButton = new System.Windows.Forms.RadioButton();
             this.ecbEncryptRadioButton = new System.Windows.Forms.RadioButton();
@@ -44,6 +46,8 @@ namespace DES_Algoritmas
             this.encryptThisTextBox = new System.Windows.Forms.RichTextBox();
             this.encryptButton = new System.Windows.Forms.Button();
             this.tabDecryptPage = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
+            this.decrypted = new System.Windows.Forms.RichTextBox();
             this.scanFileTextBox = new System.Windows.Forms.RichTextBox();
             this.decryptCbcRadioButton = new System.Windows.Forms.RadioButton();
             this.decryptEcbRadioButton = new System.Windows.Forms.RadioButton();
@@ -57,6 +61,8 @@ namespace DES_Algoritmas
             this.decryptThisTextBox = new System.Windows.Forms.RichTextBox();
             this.decryptButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.tabControl.SuspendLayout();
             this.tabEncryptPage.SuspendLayout();
             this.tabDecryptPage.SuspendLayout();
@@ -75,6 +81,10 @@ namespace DES_Algoritmas
             // tabEncryptPage
             // 
             this.tabEncryptPage.BackColor = System.Drawing.SystemColors.Info;
+            this.tabEncryptPage.Controls.Add(this.richTextBox1);
+            this.tabEncryptPage.Controls.Add(this.label13);
+            this.tabEncryptPage.Controls.Add(this.encrypted);
+            this.tabEncryptPage.Controls.Add(this.label11);
             this.tabEncryptPage.Controls.Add(this.saveLocationTextBox);
             this.tabEncryptPage.Controls.Add(this.cbcEncryptRadioButton);
             this.tabEncryptPage.Controls.Add(this.ecbEncryptRadioButton);
@@ -94,9 +104,28 @@ namespace DES_Algoritmas
             this.tabEncryptPage.TabIndex = 0;
             this.tabEncryptPage.Text = "Šifravimas";
             // 
+            // encrypted
+            // 
+            this.encrypted.Location = new System.Drawing.Point(56, 440);
+            this.encrypted.Name = "encrypted";
+            this.encrypted.ReadOnly = true;
+            this.encrypted.Size = new System.Drawing.Size(594, 129);
+            this.encrypted.TabIndex = 14;
+            this.encrypted.Text = "";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(240, 408);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(155, 18);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Užšifruotas tekstas";
+            // 
             // saveLocationTextBox
             // 
-            this.saveLocationTextBox.Location = new System.Drawing.Point(351, 110);
+            this.saveLocationTextBox.Location = new System.Drawing.Point(351, 140);
             this.saveLocationTextBox.Name = "saveLocationTextBox";
             this.saveLocationTextBox.ReadOnly = true;
             this.saveLocationTextBox.Size = new System.Drawing.Size(321, 21);
@@ -106,7 +135,7 @@ namespace DES_Algoritmas
             // cbcEncryptRadioButton
             // 
             this.cbcEncryptRadioButton.AutoSize = true;
-            this.cbcEncryptRadioButton.Location = new System.Drawing.Point(324, 458);
+            this.cbcEncryptRadioButton.Location = new System.Drawing.Point(318, 337);
             this.cbcEncryptRadioButton.Name = "cbcEncryptRadioButton";
             this.cbcEncryptRadioButton.Size = new System.Drawing.Size(46, 17);
             this.cbcEncryptRadioButton.TabIndex = 11;
@@ -117,7 +146,7 @@ namespace DES_Algoritmas
             // ecbEncryptRadioButton
             // 
             this.ecbEncryptRadioButton.AutoSize = true;
-            this.ecbEncryptRadioButton.Location = new System.Drawing.Point(272, 458);
+            this.ecbEncryptRadioButton.Location = new System.Drawing.Point(266, 337);
             this.ecbEncryptRadioButton.Name = "ecbEncryptRadioButton";
             this.ecbEncryptRadioButton.Size = new System.Drawing.Size(46, 17);
             this.ecbEncryptRadioButton.TabIndex = 10;
@@ -129,7 +158,7 @@ namespace DES_Algoritmas
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(53, 456);
+            this.label5.Location = new System.Drawing.Point(47, 335);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(213, 18);
             this.label5.TabIndex = 8;
@@ -137,7 +166,7 @@ namespace DES_Algoritmas
             // 
             // saveAtThisLocationButton
             // 
-            this.saveAtThisLocationButton.Location = new System.Drawing.Point(678, 110);
+            this.saveAtThisLocationButton.Location = new System.Drawing.Point(678, 140);
             this.saveAtThisLocationButton.Name = "saveAtThisLocationButton";
             this.saveAtThisLocationButton.Size = new System.Drawing.Size(24, 23);
             this.saveAtThisLocationButton.TabIndex = 7;
@@ -148,7 +177,7 @@ namespace DES_Algoritmas
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(53, 110);
+            this.label4.Location = new System.Drawing.Point(53, 140);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(302, 18);
             this.label4.TabIndex = 6;
@@ -158,7 +187,7 @@ namespace DES_Algoritmas
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(240, 142);
+            this.label3.Location = new System.Drawing.Point(240, 172);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(189, 18);
             this.label3.TabIndex = 5;
@@ -168,7 +197,7 @@ namespace DES_Algoritmas
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(53, 76);
+            this.label2.Location = new System.Drawing.Point(55, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 18);
             this.label2.TabIndex = 4;
@@ -186,7 +215,7 @@ namespace DES_Algoritmas
             // 
             // encryptKeyTextBox
             // 
-            this.encryptKeyTextBox.Location = new System.Drawing.Point(134, 76);
+            this.encryptKeyTextBox.Location = new System.Drawing.Point(136, 65);
             this.encryptKeyTextBox.Name = "encryptKeyTextBox";
             this.encryptKeyTextBox.Size = new System.Drawing.Size(321, 21);
             this.encryptKeyTextBox.TabIndex = 2;
@@ -194,15 +223,15 @@ namespace DES_Algoritmas
             // 
             // encryptThisTextBox
             // 
-            this.encryptThisTextBox.Location = new System.Drawing.Point(56, 163);
+            this.encryptThisTextBox.Location = new System.Drawing.Point(56, 193);
             this.encryptThisTextBox.Name = "encryptThisTextBox";
-            this.encryptThisTextBox.Size = new System.Drawing.Size(594, 272);
+            this.encryptThisTextBox.Size = new System.Drawing.Size(594, 129);
             this.encryptThisTextBox.TabIndex = 1;
             this.encryptThisTextBox.Text = "";
             // 
             // encryptButton
             // 
-            this.encryptButton.Location = new System.Drawing.Point(289, 532);
+            this.encryptButton.Location = new System.Drawing.Point(298, 372);
             this.encryptButton.Name = "encryptButton";
             this.encryptButton.Size = new System.Drawing.Size(75, 23);
             this.encryptButton.TabIndex = 0;
@@ -213,6 +242,8 @@ namespace DES_Algoritmas
             // tabDecryptPage
             // 
             this.tabDecryptPage.BackColor = System.Drawing.SystemColors.Info;
+            this.tabDecryptPage.Controls.Add(this.label12);
+            this.tabDecryptPage.Controls.Add(this.decrypted);
             this.tabDecryptPage.Controls.Add(this.scanFileTextBox);
             this.tabDecryptPage.Controls.Add(this.decryptCbcRadioButton);
             this.tabDecryptPage.Controls.Add(this.decryptEcbRadioButton);
@@ -233,6 +264,25 @@ namespace DES_Algoritmas
             this.tabDecryptPage.TabIndex = 1;
             this.tabDecryptPage.Text = "Dešifravimas";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(259, 381);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(155, 18);
+            this.label12.TabIndex = 25;
+            this.label12.Text = "Dešifruotas tekstas";
+            // 
+            // decrypted
+            // 
+            this.decrypted.Location = new System.Drawing.Point(56, 414);
+            this.decrypted.Name = "decrypted";
+            this.decrypted.ReadOnly = true;
+            this.decrypted.Size = new System.Drawing.Size(594, 101);
+            this.decrypted.TabIndex = 24;
+            this.decrypted.Text = "";
+            // 
             // scanFileTextBox
             // 
             this.scanFileTextBox.Location = new System.Drawing.Point(243, 111);
@@ -244,7 +294,7 @@ namespace DES_Algoritmas
             // decryptCbcRadioButton
             // 
             this.decryptCbcRadioButton.AutoSize = true;
-            this.decryptCbcRadioButton.Location = new System.Drawing.Point(336, 459);
+            this.decryptCbcRadioButton.Location = new System.Drawing.Point(333, 284);
             this.decryptCbcRadioButton.Name = "decryptCbcRadioButton";
             this.decryptCbcRadioButton.Size = new System.Drawing.Size(46, 17);
             this.decryptCbcRadioButton.TabIndex = 22;
@@ -255,7 +305,7 @@ namespace DES_Algoritmas
             // decryptEcbRadioButton
             // 
             this.decryptEcbRadioButton.AutoSize = true;
-            this.decryptEcbRadioButton.Location = new System.Drawing.Point(284, 459);
+            this.decryptEcbRadioButton.Location = new System.Drawing.Point(281, 284);
             this.decryptEcbRadioButton.Name = "decryptEcbRadioButton";
             this.decryptEcbRadioButton.Size = new System.Drawing.Size(46, 17);
             this.decryptEcbRadioButton.TabIndex = 21;
@@ -267,7 +317,7 @@ namespace DES_Algoritmas
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(53, 457);
+            this.label6.Location = new System.Drawing.Point(50, 282);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(231, 18);
             this.label6.TabIndex = 20;
@@ -308,9 +358,9 @@ namespace DES_Algoritmas
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(53, 77);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 18);
+            this.label9.Size = new System.Drawing.Size(27, 18);
             this.label9.TabIndex = 16;
-            this.label9.Text = "Raktas:";
+            this.label9.Text = "IV:";
             // 
             // label10
             // 
@@ -334,13 +384,13 @@ namespace DES_Algoritmas
             // 
             this.decryptThisTextBox.Location = new System.Drawing.Point(56, 164);
             this.decryptThisTextBox.Name = "decryptThisTextBox";
-            this.decryptThisTextBox.Size = new System.Drawing.Size(594, 272);
+            this.decryptThisTextBox.Size = new System.Drawing.Size(594, 101);
             this.decryptThisTextBox.TabIndex = 13;
             this.decryptThisTextBox.Text = "";
             // 
             // decryptButton
             // 
-            this.decryptButton.Location = new System.Drawing.Point(289, 533);
+            this.decryptButton.Location = new System.Drawing.Point(321, 324);
             this.decryptButton.Name = "decryptButton";
             this.decryptButton.Size = new System.Drawing.Size(75, 23);
             this.decryptButton.TabIndex = 12;
@@ -357,6 +407,25 @@ namespace DES_Algoritmas
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(94, 97);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 18);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "IV:";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(136, 97);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.Size = new System.Drawing.Size(321, 21);
+            this.richTextBox1.TabIndex = 16;
+            this.richTextBox1.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,6 +435,7 @@ namespace DES_Algoritmas
             this.Controls.Add(this.tabControl);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl.ResumeLayout(false);
             this.tabEncryptPage.ResumeLayout(false);
             this.tabEncryptPage.PerformLayout();
@@ -405,6 +475,12 @@ namespace DES_Algoritmas
         private System.Windows.Forms.Button decryptButton;
         private System.Windows.Forms.RichTextBox saveLocationTextBox;
         private System.Windows.Forms.RichTextBox scanFileTextBox;
+        private System.Windows.Forms.RichTextBox encrypted;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.RichTextBox decrypted;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Label label13;
     }
 }
 
