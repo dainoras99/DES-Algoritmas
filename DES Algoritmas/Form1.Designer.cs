@@ -31,14 +31,18 @@ namespace DES_Algoritmas
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabEncryptPage = new System.Windows.Forms.TabPage();
+            this.pastepreviousIVButton = new System.Windows.Forms.Button();
+            this.generateIVButton = new System.Windows.Forms.Button();
+            this.filePath = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.encryptIV = new System.Windows.Forms.TextBox();
             this.encryptThisTextBox = new System.Windows.Forms.TextBox();
             this.encrytedText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.saveLocationTextBox = new System.Windows.Forms.RichTextBox();
             this.cbcEncryptRadioButton = new System.Windows.Forms.RadioButton();
             this.ecbEncryptRadioButton = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
-            this.saveAtThisLocationButton = new System.Windows.Forms.Button();
+            this.searchFilePath = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,6 +50,10 @@ namespace DES_Algoritmas
             this.encryptKeyTextBox = new System.Windows.Forms.RichTextBox();
             this.encryptButton = new System.Windows.Forms.Button();
             this.tabDecryptPage = new System.Windows.Forms.TabPage();
+            this.pasteLastIv = new System.Windows.Forms.Button();
+            this.GeneratedIV = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.decryptIV = new System.Windows.Forms.TextBox();
             this.decryptThisTextBox = new System.Windows.Forms.TextBox();
             this.decryptedText = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -61,10 +69,6 @@ namespace DES_Algoritmas
             this.decryptKeyTextBox = new System.Windows.Forms.RichTextBox();
             this.decryptButton = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.encryptIV = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.decryptIV = new System.Windows.Forms.TextBox();
             this.tabControl.SuspendLayout();
             this.tabEncryptPage.SuspendLayout();
             this.tabDecryptPage.SuspendLayout();
@@ -83,16 +87,18 @@ namespace DES_Algoritmas
             // tabEncryptPage
             // 
             this.tabEncryptPage.BackColor = System.Drawing.SystemColors.Info;
+            this.tabEncryptPage.Controls.Add(this.pastepreviousIVButton);
+            this.tabEncryptPage.Controls.Add(this.generateIVButton);
+            this.tabEncryptPage.Controls.Add(this.filePath);
             this.tabEncryptPage.Controls.Add(this.label15);
             this.tabEncryptPage.Controls.Add(this.encryptIV);
             this.tabEncryptPage.Controls.Add(this.encryptThisTextBox);
             this.tabEncryptPage.Controls.Add(this.encrytedText);
             this.tabEncryptPage.Controls.Add(this.label11);
-            this.tabEncryptPage.Controls.Add(this.saveLocationTextBox);
             this.tabEncryptPage.Controls.Add(this.cbcEncryptRadioButton);
             this.tabEncryptPage.Controls.Add(this.ecbEncryptRadioButton);
             this.tabEncryptPage.Controls.Add(this.label5);
-            this.tabEncryptPage.Controls.Add(this.saveAtThisLocationButton);
+            this.tabEncryptPage.Controls.Add(this.searchFilePath);
             this.tabEncryptPage.Controls.Add(this.label4);
             this.tabEncryptPage.Controls.Add(this.label3);
             this.tabEncryptPage.Controls.Add(this.label2);
@@ -106,6 +112,58 @@ namespace DES_Algoritmas
             this.tabEncryptPage.TabIndex = 0;
             this.tabEncryptPage.Text = "Šifravimas";
             // 
+            // pastepreviousIVButton
+            // 
+            this.pastepreviousIVButton.Location = new System.Drawing.Point(544, 267);
+            this.pastepreviousIVButton.Name = "pastepreviousIVButton";
+            this.pastepreviousIVButton.Size = new System.Drawing.Size(192, 37);
+            this.pastepreviousIVButton.TabIndex = 35;
+            this.pastepreviousIVButton.Text = "Įklijuoti paskutinį sugeneruotą IV dešifravime";
+            this.pastepreviousIVButton.UseVisualStyleBackColor = true;
+            this.pastepreviousIVButton.Visible = false;
+            this.pastepreviousIVButton.Click += new System.EventHandler(this.pastepreviousIVButton_Click);
+            // 
+            // generateIVButton
+            // 
+            this.generateIVButton.Location = new System.Drawing.Point(463, 267);
+            this.generateIVButton.Name = "generateIVButton";
+            this.generateIVButton.Size = new System.Drawing.Size(75, 37);
+            this.generateIVButton.TabIndex = 34;
+            this.generateIVButton.Text = "Generuoti";
+            this.generateIVButton.UseVisualStyleBackColor = true;
+            this.generateIVButton.Visible = false;
+            this.generateIVButton.Click += new System.EventHandler(this.generateIVButton_Click);
+            // 
+            // filePath
+            // 
+            this.filePath.Location = new System.Drawing.Point(161, 363);
+            this.filePath.Name = "filePath";
+            this.filePath.ReadOnly = true;
+            this.filePath.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.filePath.Size = new System.Drawing.Size(520, 20);
+            this.filePath.TabIndex = 23;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(103, 276);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(27, 18);
+            this.label15.TabIndex = 21;
+            this.label15.Text = "IV:";
+            this.label15.Visible = false;
+            // 
+            // encryptIV
+            // 
+            this.encryptIV.Location = new System.Drawing.Point(136, 276);
+            this.encryptIV.Name = "encryptIV";
+            this.encryptIV.ReadOnly = true;
+            this.encryptIV.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.encryptIV.Size = new System.Drawing.Size(321, 20);
+            this.encryptIV.TabIndex = 20;
+            this.encryptIV.Visible = false;
+            // 
             // encryptThisTextBox
             // 
             this.encryptThisTextBox.Location = new System.Drawing.Point(58, 193);
@@ -116,7 +174,7 @@ namespace DES_Algoritmas
             // 
             // encrytedText
             // 
-            this.encrytedText.Location = new System.Drawing.Point(60, 398);
+            this.encrytedText.Location = new System.Drawing.Point(67, 490);
             this.encrytedText.Name = "encrytedText";
             this.encrytedText.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.encrytedText.Size = new System.Drawing.Size(594, 20);
@@ -126,20 +184,11 @@ namespace DES_Algoritmas
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(244, 358);
+            this.label11.Location = new System.Drawing.Point(251, 450);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(155, 18);
             this.label11.TabIndex = 13;
             this.label11.Text = "Užšifruotas tekstas";
-            // 
-            // saveLocationTextBox
-            // 
-            this.saveLocationTextBox.Location = new System.Drawing.Point(351, 140);
-            this.saveLocationTextBox.Name = "saveLocationTextBox";
-            this.saveLocationTextBox.ReadOnly = true;
-            this.saveLocationTextBox.Size = new System.Drawing.Size(321, 21);
-            this.saveLocationTextBox.TabIndex = 12;
-            this.saveLocationTextBox.Text = "";
             // 
             // cbcEncryptRadioButton
             // 
@@ -151,6 +200,7 @@ namespace DES_Algoritmas
             this.cbcEncryptRadioButton.TabStop = true;
             this.cbcEncryptRadioButton.Text = "CBC";
             this.cbcEncryptRadioButton.UseVisualStyleBackColor = true;
+            this.cbcEncryptRadioButton.CheckedChanged += new System.EventHandler(this.cbcEncryptRadioButton_CheckedChanged);
             // 
             // ecbEncryptRadioButton
             // 
@@ -162,6 +212,7 @@ namespace DES_Algoritmas
             this.ecbEncryptRadioButton.TabStop = true;
             this.ecbEncryptRadioButton.Text = "ECB";
             this.ecbEncryptRadioButton.UseVisualStyleBackColor = true;
+            this.ecbEncryptRadioButton.CheckedChanged += new System.EventHandler(this.ecbEncryptRadioButton_CheckedChanged);
             // 
             // label5
             // 
@@ -173,24 +224,25 @@ namespace DES_Algoritmas
             this.label5.TabIndex = 8;
             this.label5.Text = "Pasirinkite šifravimo modą:";
             // 
-            // saveAtThisLocationButton
+            // searchFilePath
             // 
-            this.saveAtThisLocationButton.Location = new System.Drawing.Point(678, 140);
-            this.saveAtThisLocationButton.Name = "saveAtThisLocationButton";
-            this.saveAtThisLocationButton.Size = new System.Drawing.Size(24, 23);
-            this.saveAtThisLocationButton.TabIndex = 7;
-            this.saveAtThisLocationButton.Text = "...";
-            this.saveAtThisLocationButton.UseVisualStyleBackColor = true;
+            this.searchFilePath.Location = new System.Drawing.Point(687, 361);
+            this.searchFilePath.Name = "searchFilePath";
+            this.searchFilePath.Size = new System.Drawing.Size(24, 23);
+            this.searchFilePath.TabIndex = 7;
+            this.searchFilePath.Text = "...";
+            this.searchFilePath.UseVisualStyleBackColor = true;
+            this.searchFilePath.Click += new System.EventHandler(this.saveAtThisLocationButton_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(53, 140);
+            this.label4.Location = new System.Drawing.Point(42, 362);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(302, 18);
+            this.label4.Size = new System.Drawing.Size(113, 18);
             this.label4.TabIndex = 6;
-            this.label4.Text = "Nurodykite išsaugoto teksto failo vietą:";
+            this.label4.Text = "Failo lokacija:";
             // 
             // label3
             // 
@@ -232,7 +284,7 @@ namespace DES_Algoritmas
             // 
             // encryptButton
             // 
-            this.encryptButton.Location = new System.Drawing.Point(302, 322);
+            this.encryptButton.Location = new System.Drawing.Point(309, 414);
             this.encryptButton.Name = "encryptButton";
             this.encryptButton.Size = new System.Drawing.Size(75, 23);
             this.encryptButton.TabIndex = 0;
@@ -243,6 +295,8 @@ namespace DES_Algoritmas
             // tabDecryptPage
             // 
             this.tabDecryptPage.BackColor = System.Drawing.SystemColors.Info;
+            this.tabDecryptPage.Controls.Add(this.pasteLastIv);
+            this.tabDecryptPage.Controls.Add(this.GeneratedIV);
             this.tabDecryptPage.Controls.Add(this.label13);
             this.tabDecryptPage.Controls.Add(this.decryptIV);
             this.tabDecryptPage.Controls.Add(this.decryptThisTextBox);
@@ -267,9 +321,51 @@ namespace DES_Algoritmas
             this.tabDecryptPage.TabIndex = 1;
             this.tabDecryptPage.Text = "Dešifravimas";
             // 
+            // pasteLastIv
+            // 
+            this.pasteLastIv.Location = new System.Drawing.Point(501, 310);
+            this.pasteLastIv.Name = "pasteLastIv";
+            this.pasteLastIv.Size = new System.Drawing.Size(213, 29);
+            this.pasteLastIv.TabIndex = 34;
+            this.pasteLastIv.Text = "Įklijuoti paskutinį sugeneruotą IV šifravime";
+            this.pasteLastIv.UseVisualStyleBackColor = true;
+            this.pasteLastIv.Visible = false;
+            this.pasteLastIv.Click += new System.EventHandler(this.pasteLastIv_Click);
+            // 
+            // GeneratedIV
+            // 
+            this.GeneratedIV.Location = new System.Drawing.Point(420, 310);
+            this.GeneratedIV.Name = "GeneratedIV";
+            this.GeneratedIV.Size = new System.Drawing.Size(75, 29);
+            this.GeneratedIV.TabIndex = 33;
+            this.GeneratedIV.Text = "Generuoti";
+            this.GeneratedIV.UseVisualStyleBackColor = true;
+            this.GeneratedIV.Visible = false;
+            this.GeneratedIV.Click += new System.EventHandler(this.GeneratedIV_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(60, 311);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 18);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "IV:";
+            this.label13.Visible = false;
+            // 
+            // decryptIV
+            // 
+            this.decryptIV.Location = new System.Drawing.Point(93, 311);
+            this.decryptIV.Name = "decryptIV";
+            this.decryptIV.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.decryptIV.Size = new System.Drawing.Size(321, 20);
+            this.decryptIV.TabIndex = 30;
+            this.decryptIV.Visible = false;
+            // 
             // decryptThisTextBox
             // 
-            this.decryptThisTextBox.Location = new System.Drawing.Point(61, 217);
+            this.decryptThisTextBox.Location = new System.Drawing.Point(59, 249);
             this.decryptThisTextBox.Name = "decryptThisTextBox";
             this.decryptThisTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.decryptThisTextBox.Size = new System.Drawing.Size(585, 20);
@@ -277,7 +373,7 @@ namespace DES_Algoritmas
             // 
             // decryptedText
             // 
-            this.decryptedText.Location = new System.Drawing.Point(65, 430);
+            this.decryptedText.Location = new System.Drawing.Point(65, 529);
             this.decryptedText.Name = "decryptedText";
             this.decryptedText.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.decryptedText.Size = new System.Drawing.Size(585, 20);
@@ -287,7 +383,7 @@ namespace DES_Algoritmas
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(259, 401);
+            this.label12.Location = new System.Drawing.Point(259, 500);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(155, 18);
             this.label12.TabIndex = 25;
@@ -295,8 +391,9 @@ namespace DES_Algoritmas
             // 
             // scanFileTextBox
             // 
-            this.scanFileTextBox.Location = new System.Drawing.Point(243, 164);
+            this.scanFileTextBox.Location = new System.Drawing.Point(227, 150);
             this.scanFileTextBox.Name = "scanFileTextBox";
+            this.scanFileTextBox.ReadOnly = true;
             this.scanFileTextBox.Size = new System.Drawing.Size(403, 21);
             this.scanFileTextBox.TabIndex = 23;
             this.scanFileTextBox.Text = "";
@@ -304,30 +401,32 @@ namespace DES_Algoritmas
             // decryptCbcRadioButton
             // 
             this.decryptCbcRadioButton.AutoSize = true;
-            this.decryptCbcRadioButton.Location = new System.Drawing.Point(336, 256);
+            this.decryptCbcRadioButton.Location = new System.Drawing.Point(334, 288);
             this.decryptCbcRadioButton.Name = "decryptCbcRadioButton";
             this.decryptCbcRadioButton.Size = new System.Drawing.Size(46, 17);
             this.decryptCbcRadioButton.TabIndex = 22;
             this.decryptCbcRadioButton.TabStop = true;
             this.decryptCbcRadioButton.Text = "CBC";
             this.decryptCbcRadioButton.UseVisualStyleBackColor = true;
+            this.decryptCbcRadioButton.CheckedChanged += new System.EventHandler(this.decryptCbcRadioButton_CheckedChanged);
             // 
             // decryptEcbRadioButton
             // 
             this.decryptEcbRadioButton.AutoSize = true;
-            this.decryptEcbRadioButton.Location = new System.Drawing.Point(284, 256);
+            this.decryptEcbRadioButton.Location = new System.Drawing.Point(282, 288);
             this.decryptEcbRadioButton.Name = "decryptEcbRadioButton";
             this.decryptEcbRadioButton.Size = new System.Drawing.Size(46, 17);
             this.decryptEcbRadioButton.TabIndex = 21;
             this.decryptEcbRadioButton.TabStop = true;
             this.decryptEcbRadioButton.Text = "ECB";
             this.decryptEcbRadioButton.UseVisualStyleBackColor = true;
+            this.decryptEcbRadioButton.CheckedChanged += new System.EventHandler(this.decryptEcbRadioButton_CheckedChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(53, 254);
+            this.label6.Location = new System.Drawing.Point(51, 286);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(231, 18);
             this.label6.TabIndex = 20;
@@ -335,18 +434,19 @@ namespace DES_Algoritmas
             // 
             // getFileAtThisLocationButton
             // 
-            this.getFileAtThisLocationButton.Location = new System.Drawing.Point(652, 162);
+            this.getFileAtThisLocationButton.Location = new System.Drawing.Point(636, 148);
             this.getFileAtThisLocationButton.Name = "getFileAtThisLocationButton";
             this.getFileAtThisLocationButton.Size = new System.Drawing.Size(24, 23);
             this.getFileAtThisLocationButton.TabIndex = 19;
             this.getFileAtThisLocationButton.Text = "...";
             this.getFileAtThisLocationButton.UseVisualStyleBackColor = true;
+            this.getFileAtThisLocationButton.Click += new System.EventHandler(this.getFileAtThisLocationButton_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(53, 164);
+            this.label7.Location = new System.Drawing.Point(37, 150);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(193, 18);
             this.label7.TabIndex = 18;
@@ -356,7 +456,7 @@ namespace DES_Algoritmas
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(240, 196);
+            this.label8.Location = new System.Drawing.Point(238, 228);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(207, 18);
             this.label8.TabIndex = 17;
@@ -392,7 +492,7 @@ namespace DES_Algoritmas
             // 
             // decryptButton
             // 
-            this.decryptButton.Location = new System.Drawing.Point(321, 344);
+            this.decryptButton.Location = new System.Drawing.Point(321, 443);
             this.decryptButton.Name = "decryptButton";
             this.decryptButton.Size = new System.Drawing.Size(75, 23);
             this.decryptButton.TabIndex = 12;
@@ -408,43 +508,6 @@ namespace DES_Algoritmas
             this.button2.TabIndex = 0;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // encryptIV
-            // 
-            this.encryptIV.Location = new System.Drawing.Point(136, 276);
-            this.encryptIV.Name = "encryptIV";
-            this.encryptIV.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.encryptIV.Size = new System.Drawing.Size(321, 20);
-            this.encryptIV.TabIndex = 20;
-            this.encryptIV.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(103, 276);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(27, 18);
-            this.label15.TabIndex = 21;
-            this.label15.Text = "IV:";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(62, 279);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(27, 18);
-            this.label13.TabIndex = 31;
-            this.label13.Text = "IV:";
-            // 
-            // decryptIV
-            // 
-            this.decryptIV.Location = new System.Drawing.Point(95, 279);
-            this.decryptIV.Name = "decryptIV";
-            this.decryptIV.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.decryptIV.Size = new System.Drawing.Size(321, 20);
-            this.decryptIV.TabIndex = 30;
             // 
             // Form1
             // 
@@ -472,7 +535,7 @@ namespace DES_Algoritmas
         private System.Windows.Forms.TabPage tabDecryptPage;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.RichTextBox encryptKeyTextBox;
-        private System.Windows.Forms.Button saveAtThisLocationButton;
+        private System.Windows.Forms.Button searchFilePath;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
@@ -490,7 +553,6 @@ namespace DES_Algoritmas
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.RichTextBox decryptKeyTextBox;
         private System.Windows.Forms.Button decryptButton;
-        private System.Windows.Forms.RichTextBox saveLocationTextBox;
         private System.Windows.Forms.RichTextBox scanFileTextBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
@@ -502,6 +564,11 @@ namespace DES_Algoritmas
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox decryptIV;
+        private System.Windows.Forms.TextBox filePath;
+        private System.Windows.Forms.Button GeneratedIV;
+        private System.Windows.Forms.Button pasteLastIv;
+        private System.Windows.Forms.Button pastepreviousIVButton;
+        private System.Windows.Forms.Button generateIVButton;
     }
 }
 

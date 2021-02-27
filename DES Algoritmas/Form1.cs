@@ -40,6 +40,7 @@ namespace DES_Algoritmas
                 // decrypted.Text = Encrypt_Decrypt_Text(key, text);
                 /////////////////////////////////////////////////
                 decryptedText.Text = Encrypt_Decrypt_Text(key, text);
+                
 
             }
             catch (Exception exc)
@@ -68,9 +69,12 @@ namespace DES_Algoritmas
                 if (ecbEncryptRadioButton.Checked)
                     mode = "ECB";
 
-                //encrypted.Text = Encrypt_Decrypt_Text(key, text);
+                string encryptedText = Encrypt_Decrypt_Text(key, text);
+                encrytedText.Text = encryptedText;
                 ////////////////////////////////////////////////
-                encrytedText.Text = Encrypt_Decrypt_Text(key, text);
+                string path = filePath.Text;
+                WriteToFile(path, encryptedText);
+
 
             }
             catch (Exception exc)
@@ -86,8 +90,8 @@ namespace DES_Algoritmas
                 throw new Exception("Raktas turi būti sudarytas iš aštuonių simbolių!");
             if (string.IsNullOrWhiteSpace(encryptThisTextBox.Text))
                 throw new Exception("Turite įkelti failą arba parašyti norimą koduoti tekstą");
-            if (string.IsNullOrWhiteSpace(saveLocationTextBox.Text))
-                throw new Exception("Turite nurodytį kur įrašysite failą");
+            //if (string.IsNullOrWhiteSpace(saveLocationTextBox.Text))
+               // throw new Exception("Turite nurodytį kur įrašysite failą");
             if (!ecbEncryptRadioButton.Checked && !cbcEncryptRadioButton.Checked)
                 throw new Exception("Turite pasirinkite - ECB arba CBC!");
 
@@ -137,6 +141,107 @@ namespace DES_Algoritmas
             string encryptedOrDecryptedText = encoding.GetString(encryptedOrDecryptedNumbers);
 
             return encryptedOrDecryptedText;
+        }
+        private void WriteToFile(string path, string encryptedText)
+        {
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                writer.Write(encryptedText);
+            }
+        }
+
+        private void ReadFromFile(string path)
+        {
+            decryptThisTextBox.Text = File.ReadAllText(path);
+        }
+        private void saveAtThisLocationButton_Click(object sender, EventArgs e)
+        { 
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Text Files|*.doc;*.docx;*.txt;*.text";
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filePath.Text = fileDialog.FileName;
+            }
+        }
+
+        private void getFileAtThisLocationButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Text Files|*.doc;*.docx;*.txt;*.text";
+            if (fileDialog.ShowDialog() == DialogResult.OK)
+            {
+                scanFileTextBox.Text = fileDialog.FileName;
+                ReadFromFile(scanFileTextBox.Text);
+            }
+        }
+
+        private void ecbEncryptRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            IVencryptVisibilityFalse();
+        }
+
+        private void cbcEncryptRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            IVencryptVisibilityTrue();
+        }
+
+        private void decryptEcbRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            IVdecryptVisibilityFalse();
+        }
+
+        private void decryptCbcRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            IVdecryptVisibilityTrue();
+        }
+        private void IVencryptVisibilityTrue()
+        {
+            label15.Visible = true;
+            encryptIV.Visible = true;
+            pastepreviousIVButton.Visible = true;
+            generateIVButton.Visible = true;
+        }
+
+        private void IVencryptVisibilityFalse()
+        {
+            label15.Visible = false;
+            encryptIV.Visible = false;
+            pastepreviousIVButton.Visible = false;
+            generateIVButton.Visible = false;
+        }
+        private void IVdecryptVisibilityTrue()
+        {
+            label13.Visible = true;
+            decryptIV.Visible = true;
+            pasteLastIv.Visible = true;
+            GeneratedIV.Visible = true;
+        }
+        private void IVdecryptVisibilityFalse()
+        {
+            label13.Visible = false;
+            decryptIV.Visible = false;
+            pasteLastIv.Visible = false;
+            GeneratedIV.Visible = false;
+        }
+
+        private void generateIVButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pastepreviousIVButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void GeneratedIV_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pasteLastIv_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
