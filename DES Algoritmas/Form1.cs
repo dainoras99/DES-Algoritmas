@@ -16,6 +16,9 @@ namespace DES_Algoritmas
     {
         private string mode;
         private bool encrypt;
+        private Random random = new Random();
+        private byte[] IV = new byte[8];
+        Encoding encoding = Encoding.GetEncoding("437"); // Code Page 437 to translate the 8-bit ASCII text to the Unicode equivalent.
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +28,6 @@ namespace DES_Algoritmas
         {
             try
             {
-                Random random = new Random();
                // DecryptValidations();
                 encrypt = false;
                 string key = decryptKeyTextBox.Text;
@@ -35,8 +37,9 @@ namespace DES_Algoritmas
                 if (decryptEcbRadioButton.Checked)
                     mode = "ECB";
 
-                decrypted.Text = Encrypt_Decrypt_Text(encrypt, mode, key, text);
-                
+                // decrypted.Text = Encrypt_Decrypt_Text(key, text);
+                /////////////////////////////////////////////////
+                decryptedText.Text = Encrypt_Decrypt_Text(key, text);
 
             }
             catch (Exception exc)
@@ -53,12 +56,21 @@ namespace DES_Algoritmas
                 encrypt = true;
                 string key = encryptKeyTextBox.Text;
                 string text = encryptThisTextBox.Text;
+                random.NextBytes(IV);
+
+
+                
+                
+                encryptIV.Text = encoding.GetString(IV);
+
                 if (cbcEncryptRadioButton.Checked)
                     mode = "CBC";
                 if (ecbEncryptRadioButton.Checked)
                     mode = "ECB";
 
-                encrypted.Text = Encrypt_Decrypt_Text(encrypt, mode, key, text);
+                //encrypted.Text = Encrypt_Decrypt_Text(key, text);
+                ////////////////////////////////////////////////
+                encrytedText.Text = Encrypt_Decrypt_Text(key, text);
 
             }
             catch (Exception exc)
@@ -93,19 +105,24 @@ namespace DES_Algoritmas
         }
 
 
-        private string Encrypt_Decrypt_Text(bool encrypt, string mode, string key, string text)
+        private string Encrypt_Decrypt_Text(string key, string text)
         {
-            byte[] keyNumbers = ASCIIEncoding.ASCII.GetBytes(key);
-            byte[] textNumbers = ASCIIEncoding.ASCII.GetBytes(text);
+            byte[] keyNumbers = encoding.GetBytes(key);
+            byte[] textNumbers = encoding.GetBytes(text);
             DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
-                DES.IV = keyNumbers;
-                DES.Key = keyNumbers;
-                if (mode == "ECB")
-                    DES.Mode = CipherMode.ECB;
-                if (mode == "CBC")
-                    DES.Mode = CipherMode.CBC;
+            DES.Key = keyNumbers;
+            DES.BlockSize = 64;
+            if (mode == "ECB")
+                DES.Mode = CipherMode.ECB;
+            if (mode == "CBC")
+            {
+                DES.IV = IV;
+                DES.Mode = CipherMode.CBC;
+            }
+
 
             MemoryStream memoryStream = new MemoryStream();
+            memoryStream.Position = 0;
             CryptoStream cryptoStream = null;
             if (encrypt == true)
                 cryptoStream = new CryptoStream(memoryStream, DES.CreateEncryptor(), CryptoStreamMode.Write);
@@ -114,29 +131,12 @@ namespace DES_Algoritmas
 
             cryptoStream.Write(textNumbers, 0, textNumbers.Length);
             cryptoStream.FlushFinalBlock();
-
+            
             byte[] encryptedOrDecryptedNumbers = memoryStream.ToArray();
-            string encryptedOrDecryptedText = ASCIIEncoding.ASCII.GetString(encryptedOrDecryptedNumbers);
+           
+            string encryptedOrDecryptedText = encoding.GetString(encryptedOrDecryptedNumbers);
 
             return encryptedOrDecryptedText;
-
-            // sukuriamas encryptorius(su key bitais ir pradzios vektoriumi) kuris darys basic pakeitimus
-            //ICryptoTransform transform = DES.CreateEncryptor(keyNumbers, keyNumbers);
-            //CryptoStreamMode mode = CryptoStreamMode.Write;
-
-            //MemoryStream memStream = new MemoryStream();
-            //CryptoStream cryptoStream = new CryptoStream(memStream, transform, mode);
-            //cryptoStream.Write(textNumbers, 0, textNumbers.Length);
-            //cryptoStream.FlushFinalBlock();
-
-            //byte[] encryptedTextNumbers = new byte[memStream.Length];
-            //memStream.Position = 0;
-            //memStream.Read(encryptedTextNumbers, 0, encryptedTextNumbers.Length);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
