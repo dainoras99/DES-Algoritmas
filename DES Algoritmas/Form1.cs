@@ -15,10 +15,12 @@ namespace DES_Algoritmas
     public partial class Form1 : Form
     {
         private string mode;
-        private bool encrypt;
+        private bool encryptTrue_decryptFalse;
         private Random random = new Random();
         private byte[] IV = new byte[8];
-        Encoding encoding = Encoding.GetEncoding("437"); // Code Page 437 to translate the 8-bit ASCII text to the Unicode equivalent.
+        private string lastIVencrypt = "";
+        private string lastIVdecrypt = "";
+        Encoding encoding = Encoding.GetEncoding("437"); // Code Page 437 leidžia naudoti ir supranta visus 255 ASCII table simbolius
         public Form1()
         {
             InitializeComponent();
@@ -28,8 +30,8 @@ namespace DES_Algoritmas
         {
             try
             {
-               // DecryptValidations();
-                encrypt = false;
+                DecryptValidations();
+                encryptTrue_decryptFalse = false;
                 string key = decryptKeyTextBox.Text;
                 string text = decryptThisTextBox.Text;
                 if (decryptCbcRadioButton.Checked)
@@ -37,8 +39,6 @@ namespace DES_Algoritmas
                 if (decryptEcbRadioButton.Checked)
                     mode = "ECB";
 
-                // decrypted.Text = Encrypt_Decrypt_Text(key, text);
-                /////////////////////////////////////////////////
                 decryptedText.Text = Encrypt_Decrypt_Text(key, text);
                 
 
@@ -53,16 +53,10 @@ namespace DES_Algoritmas
         {
             try
             {
-                //EncryptValidations();
-                encrypt = true;
+                EncryptValidations();
+                encryptTrue_decryptFalse = true;
                 string key = encryptKeyTextBox.Text;
                 string text = encryptThisTextBox.Text;
-                random.NextBytes(IV);
-
-
-                
-                
-                encryptIV.Text = encoding.GetString(IV);
 
                 if (cbcEncryptRadioButton.Checked)
                     mode = "CBC";
@@ -71,9 +65,10 @@ namespace DES_Algoritmas
 
                 string encryptedText = Encrypt_Decrypt_Text(key, text);
                 encrytedText.Text = encryptedText;
-                ////////////////////////////////////////////////
+
                 string path = filePath.Text;
-                WriteToFile(path, encryptedText);
+                if (path != "")
+                    WriteToFile(path, encryptedText);
 
 
             }
@@ -89,11 +84,12 @@ namespace DES_Algoritmas
             if (encryptKeyTextBox.Text.Length != 8)
                 throw new Exception("Raktas turi būti sudarytas iš aštuonių simbolių!");
             if (string.IsNullOrWhiteSpace(encryptThisTextBox.Text))
-                throw new Exception("Turite įkelti failą arba parašyti norimą koduoti tekstą");
-            //if (string.IsNullOrWhiteSpace(saveLocationTextBox.Text))
-               // throw new Exception("Turite nurodytį kur įrašysite failą");
+                throw new Exception("Turite parašyti norimą šifruoti tekstą");
             if (!ecbEncryptRadioButton.Checked && !cbcEncryptRadioButton.Checked)
                 throw new Exception("Turite pasirinkite - ECB arba CBC!");
+            if (cbcEncryptRadioButton.Checked == true)
+                if (encryptIV.Text == "")
+                    throw new Exception("Pasirinkus cbc modą, turite sugeneruoti IV (pradžios vektorių)");
 
         }
         private void DecryptValidations()
@@ -103,19 +99,22 @@ namespace DES_Algoritmas
             if (decryptKeyTextBox.Text.Length != 8)
                 throw new Exception("Raktas turi būti sudarytas iš aštuonių simbolių!");
             if (string.IsNullOrWhiteSpace(decryptThisTextBox.Text))
-                throw new Exception("Turite įkeltį nuskaitomą failą arba parašyti atkoduojamą tekstą");
+                throw new Exception("Turite įkelti nuskaitomą failą arba parašyti atšifruojamą tekstą");
             if (!decryptEcbRadioButton.Checked && !decryptCbcRadioButton.Checked)
                 throw new Exception("Turite pasirinkite - ECB arba CBC!");
+            if (decryptCbcRadioButton.Checked == true)
+                if (decryptIV.Text == "")
+                    throw new Exception("Pasirinkus cbc modą, turite sugeneruoti IV (pradžios vektorių)");
         }
 
 
-        private string Encrypt_Decrypt_Text(string key, string text)
+        private string Encrypt_Decrypt_Text(string key, string text) // Šifravimo/dešifravimo funkcija
         {
-            byte[] keyNumbers = encoding.GetBytes(key);
-            byte[] textNumbers = encoding.GetBytes(text);
-            DESCryptoServiceProvider DES = new DESCryptoServiceProvider();
-            DES.Key = keyNumbers;
-            DES.BlockSize = 64;
+            byte[] keyNumbers = encoding.GetBytes(key); 
+            byte[] textNumbers = encoding.GetBytes(text); 
+            DESCryptoServiceProvider DES = new DESCryptoServiceProvider(); 
+            DES.Key = keyNumbers; 
+            DES.BlockSize = 64; 
             if (mode == "ECB")
                 DES.Mode = CipherMode.ECB;
             if (mode == "CBC")
@@ -125,15 +124,15 @@ namespace DES_Algoritmas
             }
 
 
-            MemoryStream memoryStream = new MemoryStream();
+            MemoryStream memoryStream = new MemoryStream(); // memoryStream į kurį įrašomas rezultatas
             memoryStream.Position = 0;
             CryptoStream cryptoStream = null;
-            if (encrypt == true)
+            if (encryptTrue_decryptFalse == true)
                 cryptoStream = new CryptoStream(memoryStream, DES.CreateEncryptor(), CryptoStreamMode.Write);
-            if (encrypt == false)
+            if (encryptTrue_decryptFalse == false)
                 cryptoStream = new CryptoStream(memoryStream, DES.CreateDecryptor(), CryptoStreamMode.Write);
 
-            cryptoStream.Write(textNumbers, 0, textNumbers.Length);
+            cryptoStream.Write(textNumbers, 0, textNumbers.Length); 
             cryptoStream.FlushFinalBlock();
             
             byte[] encryptedOrDecryptedNumbers = memoryStream.ToArray();
@@ -142,7 +141,7 @@ namespace DES_Algoritmas
 
             return encryptedOrDecryptedText;
         }
-        private void WriteToFile(string path, string encryptedText)
+        private void WriteToFile(string path, string encryptedText) // teksto įrašymas į failą pagal path
         {
             using (StreamWriter writer = new StreamWriter(path))
             {
@@ -150,11 +149,11 @@ namespace DES_Algoritmas
             }
         }
 
-        private void ReadFromFile(string path)
+        private void ReadFromFile(string path) // nuskaitytą failo informaciją įkeliama į textboxą
         {
             decryptThisTextBox.Text = File.ReadAllText(path);
         }
-        private void saveAtThisLocationButton_Click(object sender, EventArgs e)
+        private void saveAtThisLocationButton_Click(object sender, EventArgs e) // mygtukas kuris atidaro filedialog(doc, docx, txt, text) ir gauna path
         { 
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Text Files|*.doc;*.docx;*.txt;*.text";
@@ -164,7 +163,7 @@ namespace DES_Algoritmas
             }
         }
 
-        private void getFileAtThisLocationButton_Click(object sender, EventArgs e)
+        private void getFileAtThisLocationButton_Click(object sender, EventArgs e) // Nuskaitymas iš failo mygtukas 
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Text Files|*.doc;*.docx;*.txt;*.text";
@@ -175,26 +174,28 @@ namespace DES_Algoritmas
             }
         }
 
-        private void ecbEncryptRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void ecbEncryptRadioButton_CheckedChanged(object sender, EventArgs e) // Jeigu pasirenkamas ECB radio mygtukas iškviečiamos funkcijos kurios visibility pradžios vektoriui nustatys true - šifravime
         {
             IVencryptVisibilityFalse();
+            encryptIV.Text = "";
         }
 
-        private void cbcEncryptRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void cbcEncryptRadioButton_CheckedChanged(object sender, EventArgs e) // Jeigu pasirenkamas CBC radio mygtukas iškviečiamos funkcijos kurios visibility pradžios vektoriui nustatys true - šifravime
         {
             IVencryptVisibilityTrue();
         }
 
-        private void decryptEcbRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void decryptEcbRadioButton_CheckedChanged(object sender, EventArgs e) // Jeigu pasirenkamas ECB radio mygtukas iškviečiamos funkcijos kurios visibility pradžios vektoriui nustatys true - dešifravime
         {
             IVdecryptVisibilityFalse();
+            decryptIV.Text = "";
         }
 
-        private void decryptCbcRadioButton_CheckedChanged(object sender, EventArgs e)
+        private void decryptCbcRadioButton_CheckedChanged(object sender, EventArgs e) // Jeigu pasirenkamas CBC radio mygtukas iškviečiamos funkcijos kurios visibility pradžios vektoriui nustatys true - dešifravime
         {
             IVdecryptVisibilityTrue();
         }
-        private void IVencryptVisibilityTrue()
+        private void IVencryptVisibilityTrue() // visibility pakeitimas (pradžios vektoriui) į true šifravimo skilty
         {
             label15.Visible = true;
             encryptIV.Visible = true;
@@ -202,21 +203,21 @@ namespace DES_Algoritmas
             generateIVButton.Visible = true;
         }
 
-        private void IVencryptVisibilityFalse()
+        private void IVencryptVisibilityFalse() // visibility pakeitimas (pradžios vektoriui) į false šifravimo skilty
         {
             label15.Visible = false;
             encryptIV.Visible = false;
             pastepreviousIVButton.Visible = false;
             generateIVButton.Visible = false;
         }
-        private void IVdecryptVisibilityTrue()
+        private void IVdecryptVisibilityTrue() // visibility pakeitimas (pradžios vektoriui) į true dešifravimo skiltį
         {
             label13.Visible = true;
             decryptIV.Visible = true;
             pasteLastIv.Visible = true;
             GeneratedIV.Visible = true;
         }
-        private void IVdecryptVisibilityFalse()
+        private void IVdecryptVisibilityFalse() // visibility pakeitimas (pradžios vektoriui) į false dešifravimo skilį
         {
             label13.Visible = false;
             decryptIV.Visible = false;
@@ -224,24 +225,81 @@ namespace DES_Algoritmas
             GeneratedIV.Visible = false;
         }
 
-        private void generateIVButton_Click(object sender, EventArgs e)
+        private void generateIVButton_Click(object sender, EventArgs e) // Mygtukas sugeneruoja random pradžios vektorių šifravime
         {
+            random.NextBytes(IV);
+            lastIVencrypt = encoding.GetString(IV);
+            encryptIV.Text = lastIVencrypt;
+        }
+
+
+        private void pastepreviousIVButton_Click(object sender, EventArgs e) // Mygtukas leidžia šifravimo skilty atspausdinti paskutinį naudotą pradžios vektorių dešifravime
+        {
+            try
+            {
+                if (lastIVdecrypt == "")
+                    throw new Exception("Dešifravime IV raktas nebuvo sugeneruotas");
+                encryptIV.Text = lastIVdecrypt;
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void GeneratedIV_Click(object sender, EventArgs e) // Mygtukas  sugeneruoja random pradžios vektorių dešifravime
+        {
+            random.NextBytes(IV);
+            lastIVdecrypt = encoding.GetString(IV);
+            decryptIV.Text = lastIVdecrypt;
+        }
+
+        private void pasteLastIv_Click(object sender, EventArgs e) // Mygtukas leidžia dešifravimo skilty atspausdinti paskutinį naudotą pradžios vektorių šifravime
+        {
+            try
+            {
+                if (lastIVencrypt == "")
+                    throw new Exception("Dešifravime IV raktas nebuvo sugeneruotas");
+                decryptIV.Text = lastIVencrypt;
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void encryptCleanButton_Click(object sender, EventArgs e) // Mygtukas "Valyti" šifravime
+        {
+            encryptKeyTextBox.Text = "";
+            encryptThisTextBox.Text = "";
+            encryptIV.Text = "";
+            filePath.Text = "";
+            encrytedText.Text = "";
+            ecbEncryptRadioButton.Checked = false;
+            cbcEncryptRadioButton.Checked = false;
+
 
         }
 
-        private void pastepreviousIVButton_Click(object sender, EventArgs e)
+        private void decryptCleanButton_Click(object sender, EventArgs e) // Mygtukas "Valyti" dešifravime
         {
-
+            decryptKeyTextBox.Text = "";
+            scanFileTextBox.Text = "";
+            decryptThisTextBox.Text = "";
+            decryptIV.Text = "";
+            decryptedText.Text = "";
+            decryptEcbRadioButton.Checked = false;
+            decryptCbcRadioButton.Checked = false;
         }
 
-        private void GeneratedIV_Click(object sender, EventArgs e)
+        private void cleanenPath_Click(object sender, EventArgs e) // Mygtukas "x" prie failo lokacijos textbox'e, kuris išvalo text'boxą šifravime
         {
-
+            filePath.Text = "";
         }
 
-        private void pasteLastIv_Click(object sender, EventArgs e)
+        private void cleandePath_Click(object sender, EventArgs e) // Mygtukas "x" prie failo lokacijos textbox'e, kuris išvalo text'boxą dešifravime
         {
-
+            scanFileTextBox.Text = "";
         }
     }
 }
